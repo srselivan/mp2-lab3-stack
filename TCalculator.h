@@ -14,7 +14,20 @@ public:
 
 	bool CheckExpr(std::string _expr)
 	{
-		return 1;
+		TStack<char> symbols(_expr.length());
+		try
+		{
+			for (char elem : _expr)
+			{
+				if (elem == '(') symbols.Push(elem);
+				if (elem == ')') symbols.Pop();
+			}
+			return symbols.Is_empty();
+		}
+		catch (int)
+		{
+			return false;
+		}
 	}
 
 	double calc()
@@ -41,6 +54,10 @@ public:
 		}
 		return stack_double.Pop();
 	}
+
+	void SetExpr(std::string _expr) { expr = _expr; }
+
+	std::string GetExpr() const { return expr; }
 
 
 
