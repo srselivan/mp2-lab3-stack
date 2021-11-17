@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
 #include "TStack.h"
-//#include "TCalculator.h"
+#include "TCalculator.h"
 #include "TDStack.h"
 
 void main()
 {
-	TDStack<int> tds(12);
+	/*TDStack<int> tds(12);
 	tds.Push1(1);
 	tds.Push1(2);
 	tds.Push1(3);
@@ -36,7 +36,7 @@ void main()
 	std::cout << res << std::endl;
 
 	_tds.Clear1();
-	std::cout << _tds << std::endl;
+	std::cout << _tds << std::endl;*/
 
 	//// 1)
 	//TStack<int> st(10);
@@ -65,10 +65,18 @@ void main()
 	//		if (elem == ')') symbols.Pop();
 	//	}
 	//	if (symbols.Is_empty()) std::cout << std::endl << "CORRECT" << std::endl;
-	//	else std::cout << std::endl << "UNCORRECT" << std::endl;
+	//	else std::cout << std::endl << "INCORRECT" << std::endl;
 	//}
 	//catch (int)
 	//{
-	//	std::cout << std::endl << "UNCORRECT" << std::endl;
+	//	std::cout << std::endl << "INCORRECT" << std::endl;
 	//}
+
+	std::string tmp = "5 + sin(0) + cos(x)";
+	TCalculator calc;
+	calc.SetExpr(tmp);
+	double res = calc.calc();
+	std::cout << res;
+	
+
 }
