@@ -72,11 +72,17 @@ void main()
 	//	std::cout << std::endl << "INCORRECT" << std::endl;
 	//}
 
-	std::string tmp = "5 + sin(0) + cos(x)";
+	std::string tmp = ")1 + sin(0 + 1^4 + (9*2) + (2)) + cos(2^4)";
 	TCalculator calc;
 	calc.SetExpr(tmp);
-	double res = calc.calc();
-	std::cout << res;
+	try
+	{
+		double res = calc.calc();
+		std::cout << res;
+	}
+	catch (const char* ex)
+	{
+		std::cout << ex;
+	}
 	
-
 }

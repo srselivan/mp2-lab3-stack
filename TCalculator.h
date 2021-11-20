@@ -48,7 +48,7 @@ public:
 				continue;
 			}
 
-			if ('0' <= infix[i] && infix[i] <= '9' || infix[i] == 'x')
+			if ( ('0' <= infix[i] && infix[i] <= '9') || infix[i] == 'x')
 			{
 				if (infix[i] == 'x')
 				{
@@ -67,58 +67,17 @@ public:
 
 			if (infix[i] == 's' || infix[i] == 'c' || infix[i] == 't')
 			{
-				switch (infix[i])
+				if (infix.substr(i, 4) == "sin(" || infix.substr(i, 4) == "cos(" || infix.substr(i, 4) == "tan(")
 				{
-				case 's':
-					if (infix.substr(i, 4) == "sin(")
-					{
-						stack_char.Push(infix[i]);
-						i += 3;
-					}
-					else throw "INCORRECT EXPR";
-					break;
-				case 'c':
-					if (infix.substr(i, 4) == "cos(")
-					{
-						stack_char.Push(infix[i]);
-						i += 3;
-					}
-					else throw "INCORRECT EXPR";
-					break;
-				case 't':
-					if (infix.substr(i, 3) == "tg(")
-					{
-						stack_char.Push(infix[i]);
-						i += 2;
-					}
-					else throw "INCORRECT EXPR";
-					break;
-				default:
-					break;
+					stack_char.Push(infix[i]);
+					i += 3;
+					continue;
 				}
-				continue;
+				throw "INCORRECT EXPR";
 			}
 
 			if (infix[i] == ')')
 			{
-				if (stack_char.Top() == 's' || stack_char.Top() == 'c' || stack_char.Top() == 't')
-				{
-					switch (stack_char.Pop())
-					{
-					case 's':
-						stack_double.Push(sin(stack_double.Pop()));
-						break;
-					case 'c':
-						stack_double.Push(cos(stack_double.Pop()));
-						break;
-					case 't':
-						stack_double.Push(tan(stack_double.Pop()));
-						break;
-					default:
-						break;
-					}
-					continue;
-				}
 
 				while (stack_char.Top() != '(' && stack_char.Top() != 's' && stack_char.Top() != 'c' && stack_char.Top() != 't')
 				{
@@ -147,7 +106,20 @@ public:
 						break;
 					}
 				}
-				stack_char.Pop();
+				switch (stack_char.Pop())
+				{
+				case 's':
+					stack_double.Push(sin(stack_double.Pop()));
+					break;
+				case 'c':
+					stack_double.Push(cos(stack_double.Pop()));
+					break;
+				case 't':
+					stack_double.Push(tan(stack_double.Pop()));
+					break;
+				default:
+					break;
+				}
 				continue;
 			}
 
@@ -201,6 +173,7 @@ public:
 			case '*': return 2;
 			case ':': return 2;
 			case '^': return 3;		
+			default: return 0;
 		}
 	}
 
@@ -210,62 +183,30 @@ public:
 		stack_char.Clear();
 		stack_double.Clear();
 
-		for (auto elem : infix)
+		for (int i = 0; i < infix.size(); i++)
 		{
-			if ('0' <= elem && elem <= '9') postfix += elem;
-			if (elem == '(') stack_char.Push(elem);
-			if (elem == ')')
+			try
 			{
-				while (stack_char.Top() != '(')
+				if ('0' <= infix[i] && infix[i] <= '9') postfix += infix[i];
+				if (infix[i] == '(') stack_char.Push(infix[i]);
+				if (infix[i] == ')')
+				{
+					while (stack_char.Top() != '(')
+						postfix += stack_char.Pop();
+					stack_char.Pop();
+				}
+				while (Priority(stack_char.Top()) <= Priority(infix[i]))
+				{
 					postfix += stack_char.Pop();
+				}
 				stack_char.Pop();
 			}
-			while (Priority(stack_char.Top()) <= Priority(elem))
+			catch (int)
 			{
-				postfix += stack_char.Pop();
+
 			}
-			stack_char.Pop();
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*
-	Перевод с префиксной в постфиксную
-	----------------------------------
-	
-	
-	
-	
-	
-	
-	
-	*/
-
-
-
-	// задавать, проверка на корректность | set / get / check
-	// оформить класс, проверка корректности и метод счёта
 };
 
