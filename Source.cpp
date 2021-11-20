@@ -72,7 +72,7 @@ void main()
 	//	std::cout << std::endl << "INCORRECT" << std::endl;
 	//}
 
-	std::string tmp = ")1 + sin(0 + 1^4 + (9*2) + (2)) + cos(2^4)";
+	std::string tmp = "1 + sin(0 + 1^4 + (9*2) + (2)) + cos(x^4)";
 	TCalculator calc;
 	calc.SetExpr(tmp);
 	try

@@ -29,6 +29,20 @@ class TCalculator
 		}
 	}
 
+	int Priority(char op)
+	{
+		switch (op)
+		{
+		case '(': return 0;
+		case '+': return 1;
+		case '-': return 1;
+		case '*': return 2;
+		case ':': return 2;
+		case '^': return 3;
+		default: return 0;
+		}
+	}
+
 public:
 
 	double calc()
@@ -162,20 +176,6 @@ public:
 	void SetExpr(std::string _expr) { expr = _expr; }
 
 	std::string GetExpr() const { return expr; }
-
-	int Priority(char op)
-	{
-		switch (op)
-		{
-			case '(': return 0;
-			case '+': return 1;
-			case '-': return 1;
-			case '*': return 2;
-			case ':': return 2;
-			case '^': return 3;		
-			default: return 0;
-		}
-	}
 
 	void ToPostfix()
 	{
