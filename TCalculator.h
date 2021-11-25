@@ -43,6 +43,16 @@ class TCalculator
 		}
 	}
 
+	std::string RemoveSpaces(std::string str)
+	{
+		std::string output;
+		for (int i = 0; i < str.size(); i++)
+		{
+			if (str[i] != ' ') output += str[i];
+		}
+		return output;
+	}
+
 public:
 
 	double calc()
@@ -53,6 +63,7 @@ public:
 		std::string infix = "(" + expr + ")";
 		stack_char.Clear();
 		stack_double.Clear();
+		infix = RemoveSpaces(infix);
 
 		for (int i = 0; i < infix.size(); i++)
 		{
@@ -95,8 +106,16 @@ public:
 
 				while (stack_char.Top() != '(' && stack_char.Top() != 's' && stack_char.Top() != 'c' && stack_char.Top() != 't')
 				{
-					double a = stack_double.Pop();
-					double b = stack_double.Pop();
+					double a;
+					double b;
+					try {
+						a = stack_double.Pop();
+						b = stack_double.Pop();
+					}
+					catch (int)
+					{
+						throw "INCORRECT EXPR";
+					}
 					switch (stack_char.Pop())
 					{
 					case'+':
@@ -141,8 +160,16 @@ public:
 			{
 				while (Priority(stack_char.Top()) >= Priority(infix[i]))
 				{
-					double a = stack_double.Pop();
-					double b = stack_double.Pop();
+					double a;
+					double b;
+					try {
+						a = stack_double.Pop();
+						b = stack_double.Pop();
+					}
+					catch (int)
+					{
+						throw "INCORRECT EXPR";
+					}
 					switch (stack_char.Pop())
 					{
 					case'+':

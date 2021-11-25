@@ -10,9 +10,9 @@ TEST(TCalculator, can_create_calculator)
 TEST(TCalculator, can_set_and_get_expression)
 {
 	TCalculator c;
-	c.SetExpr("2 + ((2)");
+	c.SetExpr("2 + (2)");
 
-	EXPECT_EQ(c.GetExpr(), "2 + ((2)");
+	EXPECT_EQ(c.GetExpr(), "2 + (2)");
 }
 
 TEST(TCalculator, cant_calculate_incorrect_expression)
